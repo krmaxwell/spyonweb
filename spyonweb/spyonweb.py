@@ -22,7 +22,10 @@ class spyonweb(object):
         return data.json()
 
     def analytics(self, code, limit=None):
-        data = requests.get(self.url + "analytics/" + code + "?access_token=" + self.token + "&limit=" + limit)
+        full_url = self.url + "analytics/" + code + "?access_token=" + self.token
+        if limit:
+            full_url = full_url + "&limit=" + str(limit)
+        data = requests.get(full_url)
         # TODO: implement paging
         return data.json()
 
