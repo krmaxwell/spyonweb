@@ -29,12 +29,21 @@ class spyonweb(object):
         # TODO: implement paging
         return data.json()
 
+    def ipaddress(self, ipaddr, limit=None):
+        full_url = self.url + "ip/" + ipaddr + "?access_token=" + self.token
+        if limit:
+            full_url = full_url + "&limit=" + str(limit)
+        data = requests.get(full_url)
+        # TODO: implement paging
+        return data.json()
+
 
 def main():
     parser = ArgumentParser()
     parser.add_argument('-s', '--summary', type=str, help="Specify a domain for the Request Summary API")
     parser.add_argument('-d', '--domain', type=str, help="Specify a domain for the Domain API")
     parser.add_argument('-a', '--analytics', type=str, help="Specify a code for the Analytics API")
+    parser.add_argument('-i', '--ipaddress', type=str, help="Specify an address for the IP Address API")
     args, _ = parser.parse_known_args()
 
     token = os.getenv("SPYONWEB_API")
@@ -46,6 +55,8 @@ def main():
         print s.domain(args.domain)
     if args.analytics:
         print s.analytics(args.analytics)
+    if args.ipaddress:
+        print s.ipaddress(args.ipaddress)
 
 
 if __name__ == "__main__":
