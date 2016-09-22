@@ -1,4 +1,5 @@
 import os
+from argparse import ArgumentParser
 
 import requests
 
@@ -27,10 +28,21 @@ class spyonweb(object):
 
 
 def main():
+    parser = ArgumentParser()
+    parser.add_argument('-s', '--summary', type=str, help="Specify a domain for the Request Summary API")
+    parser.add_argument('-d', '--domain', type=str, help="Specify a domain for the Domain API")
+    parser.add_argument('-a', '--analytics', type=str, help="Specify a code for the Analytics API")
+    args, _ = parser.parse_known_args()
+
     token = os.getenv("SPYONWEB_API")
     s = spyonweb(token=token)
-    a = "UA-34505845"
-    print s.analytics(a)
+
+    if args.summary:
+        print s.summary(args.summary)
+    if args.domain:
+        print s.domain(args.domain)
+    if args.analytics:
+        print s.analytics(args.analytics)
 
 
 if __name__ == "__main__":
