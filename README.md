@@ -1,14 +1,14 @@
 # spyonweb
 
-A Python library for the [Spyonweb API](https://api.spyonweb.com/v1/docs). Documentation for the RESTful API is available at https://api.spyonweb.com/v1/docs. NB: This Python library is not affiliated with Spyonweb.com.
+A Python library for the [Spyonweb API](https://api.spyonweb.com/v1/docs). Documentation for the RESTful API is available at https://api.spyonweb.com/v1/docs. NB: This Python library is not affiliated with Spyonweb.com. Be sure to review their [Terms of Service](http://www.spyonweb.com/terms).
 
 ## Available methods
 
 - `summary`: The Request Summary API allows you to input a domain name and get the number of domains with the same Google Adsense, Google Analytics identifiers, IP Address, and Nameserver.
-- `domain`: The Domain API allows you to input a domain and get a list of domains that share the same identifiers (Google Adsense, Google Analytics, IP Address, Nameserver). 
-- `adsense`: The Google Adsense API allows you to input a Google adsense identifier and get a list of domains that share the same identifier. 
+- `domain`: The Domain API allows you to input a domain and get a list of domains that share the same identifiers (Google Adsense, Google Analytics, IP Address, Nameserver).
+- `adsense`: The Google Adsense API allows you to input a Google adsense identifier and get a list of domains that share the same identifier.
 - `analytics`: The Google Analytics API allows you to input a Google Analytics identifier and get a list of domains that share the same identifier.
-- `ipaddress`: The IP Address API allows you to input an IP address and get a list of domains hosted on this IP address. 
+- `ipaddress`: The IP Address API allows you to input an IP address and get a list of domains hosted on this IP address.
 - `dns_domain`: The Domains on Nameserver API allows you to input a nameserver and get a list of domains handled by this nameserver.
 - `dns_ip`: The Nameservers on IP Address API allows you to input an IP address and get a list of nameservers using this IP address.
 
