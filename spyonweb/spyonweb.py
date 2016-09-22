@@ -45,6 +45,14 @@ class spyonweb(object):
         # TODO: implement paging
         return data.json()
 
+    def ip_dns(self, ipaddr, limit=None):
+        full_url = self.url + "ip_dns/" + ipaddr + "?access_token=" + self.token
+        if limit:
+            full_url = full_url + "&limit=" + str(limit)
+        data = requests.get(full_url)
+        # TODO: implement paging
+        return data.json()
+
 
 def main():
     parser = ArgumentParser()
@@ -53,6 +61,7 @@ def main():
     parser.add_argument('-a', '--analytics', type=str, help="Specify a code for the Analytics API")
     parser.add_argument('-i', '--ipaddress', type=str, help="Specify an address for the IP Address API")
     parser.add_argument('-n', '--dns_domain', type=str, help="Specify a name for the Domains on Nameserver API")
+    parser.add_argument('-p', '--ip_dns', type=str, help="Specify an address for the Nameservers on IP Address API")
     args, _ = parser.parse_known_args()
 
     token = os.getenv("SPYONWEB_API")
@@ -68,6 +77,8 @@ def main():
         print s.ipaddress(args.ipaddress)
     if args.dns_domain:
         print s.dns_domain(args.dns_domain)
+    if args.ip_dns:
+        print s.ip_dns(args.ip_dns)
 
 
 if __name__ == "__main__":
