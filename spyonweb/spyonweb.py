@@ -1,4 +1,5 @@
 import os
+import pprint
 from argparse import ArgumentParser
 
 import requests
@@ -64,21 +65,23 @@ def main():
     parser.add_argument('-p', '--ip_dns', type=str, help="Specify an address for the Nameservers on IP Address API")
     args, _ = parser.parse_known_args()
 
+    pp = pprint.PrettyPrinter(indent=2)
+
     token = os.getenv("SPYONWEB_API")
     s = spyonweb(token=token)
 
     if args.summary:
-        print s.summary(args.summary)
+        pp.pprint(s.summary(args.summary))
     if args.domain:
-        print s.domain(args.domain)
+        pp.pprint(s.domain(args.domain))
     if args.analytics:
-        print s.analytics(args.analytics)
+        pp.pprint(s.analytics(args.analytics))
     if args.ipaddress:
-        print s.ipaddress(args.ipaddress)
+        pp.pprint(s.ipaddress(args.ipaddress))
     if args.dns_domain:
-        print s.dns_domain(args.dns_domain)
+        pp.pprint(s.dns_domain(args.dns_domain))
     if args.ip_dns:
-        print s.ip_dns(args.ip_dns)
+        pp.pprint(s.ip_dns(args.ip_dns))
 
 
 if __name__ == "__main__":
