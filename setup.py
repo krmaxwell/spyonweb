@@ -10,7 +10,7 @@ config = {
     'download_url': 'https://github.com/krmaxwell/spyonweb',
     'author_email': 'krmaxwell@gmail.com',
     'version': '0.1',
-    'install_requires': ['nose'],
+    'install_requires': ['nose', 'pre-commit'],
     'packages': ['spyonweb'],
     'scripts': [],
     'name': 'spyonweb'
