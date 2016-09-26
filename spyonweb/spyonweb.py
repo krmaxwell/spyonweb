@@ -68,7 +68,7 @@ def main():
     parser.add_argument('-s', '--summary', type=str, help="Specify a domain for the Request Summary API")
     parser.add_argument('-d', '--domain', type=str, help="Specify a domain for the Domain API")
     parser.add_argument('-a', '--analytics', type=str, help="Specify a code for the Analytics API")
-    parser.add_argument('-e', '--analytics', type=str, help="Specify a code for the Adsense API")
+    parser.add_argument('-e', '--adsense', type=str, help="Specify a code for the Adsense API")
     parser.add_argument('-i', '--ipaddress', type=str, help="Specify an address for the IP Address API")
     parser.add_argument('-n', '--dns_domain', type=str, help="Specify a name for the Domains on Nameserver API")
     parser.add_argument('-p', '--ip_dns', type=str, help="Specify an address for the Nameservers on IP Address API")
