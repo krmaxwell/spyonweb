@@ -90,6 +90,8 @@ def main():
         pp.pprint(s.domain(args.domain))
     if args.analytics:
         pp.pprint(s.analytics(args.analytics))
+    if args.adsense:
+        pp.pprint(s.adsense(args.adsense))
     if args.ipaddress:
         pp.pprint(s.ipaddress(args.ipaddress))
     if args.dns_domain:
