@@ -1,5 +1,6 @@
 import os
 import pprint
+import sys
 from argparse import ArgumentParser
 
 import requests
@@ -77,6 +78,10 @@ def main():
     pp = pprint.PrettyPrinter(indent=2)
 
     token = os.getenv("SPYONWEB_API")
+    if not token:
+        sys.stderr.write("Need API token in environment variable SPYONWEB_API\n")
+        sys.exit()
+
     s = spyonweb(token=token)
 
     if args.summary:
