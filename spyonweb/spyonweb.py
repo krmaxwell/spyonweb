@@ -1,7 +1,9 @@
+import json
 import os
 import pprint
 import sys
 from argparse import ArgumentParser
+from collections import OrderedDict
 
 import requests
 
@@ -24,44 +26,42 @@ class spyonweb(object):
         return data.json()
 
     def analytics(self, code, limit=None):
-        full_url = self.url + "analytics/" + code + "?access_token=" + self.token
-        if limit:
-            full_url = full_url + "&limit=" + str(limit)
-        data = requests.get(full_url)
-        # TODO: implement paging
-        return data.json()
+        return json.dump(self._fetch(endpoint='analytics', query=code, limit=limit))
 
     def adsense(self, code, limit=None):
-        full_url = self.url + "adsense/" + code + "?access_token=" + self.token
-        if limit:
-            full_url = full_url + "&limit=" + str(limit)
-        data = requests.get(full_url)
-        # TODO: implement paging
-        return data.json()
+        return json.dump(self._fetch(endpoint='adsense', query=code, limit=limit))
 
     def ipaddress(self, ipaddr, limit=None):
-        full_url = self.url + "ip/" + ipaddr + "?access_token=" + self.token
-        if limit:
-            full_url = full_url + "&limit=" + str(limit)
-        data = requests.get(full_url)
-        # TODO: implement paging
-        return data.json()
+        return json.dump(self._fetch(endpoint='ip', query=ipaddr, limit=limit))
 
     def dns_domain(self, name, limit=None):
-        full_url = self.url + "dns_domain/" + name + "?access_token=" + self.token
-        if limit:
-            full_url = full_url + "&limit=" + str(limit)
-        data = requests.get(full_url)
-        # TODO: implement paging
-        return data.json()
+        return json.dump(self._fetch(endpoint='dns_domain', query=name, limit=limit))
 
     def ip_dns(self, ipaddr, limit=None):
-        full_url = self.url + "ip_dns/" + ipaddr + "?access_token=" + self.token
+        return json.dump(self._fetch(endpoint='ip_dns', query=ipaddr, limit=limit))
+
+    def _fetch(self, endpoint, query, limit):
+        full_url = self.url + endpoint + "/" + query + "?access_token=" + self.token
+        fetched = 0              # records retrieved in last batch
+        found = 0                # records available in total
+        results = OrderedDict()  # dict of domain and dates
+
         if limit:
             full_url = full_url + "&limit=" + str(limit)
-        data = requests.get(full_url)
-        # TODO: implement paging
-        return data.json()
+        else:
+            limit = sys.maxinit
+
+        new_url = full_url
+        while fetched <= min(limit, found):
+            data = requests.get(new_url).json(object_pairs_hook=OrderedDict)
+            if data['status'] != 'found':
+                return None
+            fetched += data['result'][endpoint][query]['fetched']
+            found = data['result'][endpoint][query]['found']
+            items = OrderedDict(data['result'][endpoint][query]['items'])
+            results.update(items)
+            new_url = full_url + '&start=' + next(reversed(items))  # start next batch with last one from this batch
+        return(results)
 
 
 def main():
