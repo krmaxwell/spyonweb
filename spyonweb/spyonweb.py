@@ -35,32 +35,7 @@ class spyonweb(object):
         return json.dump(self._fetch(endpoint='ip', query=ipaddr, limit=limit))
 
     def dns_domain(self, name, limit=None):
-<<<<<<< HEAD
         return json.dump(self._fetch(endpoint='dns_domain', query=name, limit=limit))
-=======
-        full_url = self.url + "dns_domain/" + name + "?access_token=" + self.token
-        fetched = 0              # records retrieved in last batch
-        found = 0                # records available in total
-        results = OrderedDict()  # dict of domain and dates
-
-        if limit:
-            full_url = full_url + "&limit=" + str(limit)
-        else:
-            limit = sys.maxint
-
-        new_url = full_url
-        while fetched <= min(limit, found):
-            data = requests.get(new_url).json(object_pairs_hook=OrderedDict)
-            if data['status'] != 'found':
-                return None
-            fetched += data['result']['dns_domain'][name]['fetched']
-            found = data['result']['dns_domain'][name]['found']
-            items = OrderedDict(data['result']['dns_domain'][name]['items'])
-            results.update(items)
-            new_url = full_url + '&start=' + next(reversed(items))  # start next batch with last one from this batch
-
-        return results
->>>>>>> e078a47... Implement paging for dns_domain()
 
     def ip_dns(self, ipaddr, limit=None):
         return json.dump(self._fetch(endpoint='ip_dns', query=ipaddr, limit=limit))
