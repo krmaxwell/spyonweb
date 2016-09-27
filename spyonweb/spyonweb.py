@@ -26,19 +26,19 @@ class spyonweb(object):
         return data.json()
 
     def analytics(self, code, limit=None):
-        return json.dump(self._fetch(endpoint='analytics', query=code, limit=limit))
+        return json.dumps(self._fetch(endpoint='analytics', query=code, limit=limit))
 
     def adsense(self, code, limit=None):
-        return json.dump(self._fetch(endpoint='adsense', query=code, limit=limit))
+        return json.dumps(self._fetch(endpoint='adsense', query=code, limit=limit))
 
     def ipaddress(self, ipaddr, limit=None):
-        return json.dump(self._fetch(endpoint='ip', query=ipaddr, limit=limit))
+        return json.dumps(self._fetch(endpoint='ip', query=ipaddr, limit=limit))
 
     def dns_domain(self, name, limit=None):
-        return json.dump(self._fetch(endpoint='dns_domain', query=name, limit=limit))
+        return json.dumps(self._fetch(endpoint='dns_domain', query=name, limit=limit))
 
     def ip_dns(self, ipaddr, limit=None):
-        return json.dump(self._fetch(endpoint='ip_dns', query=ipaddr, limit=limit))
+        return json.dumps(self._fetch(endpoint='ip_dns', query=ipaddr, limit=limit))
 
     def _fetch(self, endpoint, query, limit):
         full_url = self.url + endpoint + "/" + query + "?access_token=" + self.token
@@ -49,7 +49,7 @@ class spyonweb(object):
         if limit:
             full_url = full_url + "&limit=" + str(limit)
         else:
-            limit = sys.maxinit
+            limit = sys.maxint
 
         new_url = full_url
         while fetched <= min(limit, found):
