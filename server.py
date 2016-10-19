@@ -14,7 +14,7 @@ ValidAnalyticsRegex = "^UA-[0-9]+$"
 # dispatcher
 
 
-@route('/summary')
+@route('/summary', method='POST')
 def summary():
     if request.body.len > 0:
         incoming = TRX.MaltegoMsg(request.body.getvalue())
@@ -28,7 +28,7 @@ def summary():
             return xform.throwExceptions()
 
 
-@route('/domain')
+@route('/domain', method='POST')
 def domain():
     if request.body.len > 0:
         incoming = TRX.MaltegoMsg(request.body.getvalue())
@@ -42,7 +42,7 @@ def domain():
             return xform.throwExceptions()
 
 
-@route('/adsense')
+@route('/adsense', method='POST')
 def adsense():
     if request.body.len > 0:
         incoming = TRX.MaltegoMsg(request.body.getvalue())
@@ -58,7 +58,7 @@ def adsense():
             return xform.throwExceptions()
 
 
-@route('/analytics')
+@route('/analytics', method='POST')
 def analytics():
     if request.body.len > 0:
         incoming = TRX.MaltegoMsg(request.body.getvalue())
@@ -74,7 +74,7 @@ def analytics():
             return xform.throwExceptions()
 
 
-@route('/ip')
+@route('/ip', method='POST')
 def ip():
     if request.body.len > 0:
         incoming = TRX.MaltegoMsg(request.body.getvalue())
@@ -90,7 +90,7 @@ def ip():
             return xform.throwExceptions()
 
 
-@route('/dns_domain')
+@route('/dns_domain', method='POST')
 def dns_domain():
     if request.body.len > 0:
         incoming = TRX.MaltegoMsg(request.body.getvalue())
@@ -106,7 +106,7 @@ def dns_domain():
             return xform.throwExceptions()
 
 
-@route('/ip_dns')
+@route('/ip_dns', method='POST')
 def ip_dns():
     if request.body.len > 0:
         incoming = TRX.MaltegoMsg(request.body.getvalue())
