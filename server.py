@@ -168,4 +168,4 @@ def process_domain(data):
 
 # instantiate our class
 # Start server
-run(host='localhost', port=8192, debug=True, reloader=True)
+run(host='0.0.0.0', port=8192, debug=True, reloader=True)
