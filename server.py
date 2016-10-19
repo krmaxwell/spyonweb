@@ -3,7 +3,7 @@ import re
 from bottle import request
 from bottle import route
 from bottle import run
-from spyonweb import Spyonweb
+from spyonweb import spyonweb
 from TRX import TRX
 
 ValidHostnameRegex = "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$"
@@ -19,7 +19,7 @@ def summary():
     if request.body.len > 0:
         incoming = TRX.MaltegoMsg(request.body.getvalue())
         if (incoming.Type == "Domain" or incoming.Type == "DNSName") and re.match(ValidHostnameRegex, incoming.Value):
-            s = Spyonweb(incoming.TransformSettings['api'])
+            s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
             data = s.summary(incoming.Value)
             return process_summary(data)
         else:
@@ -33,7 +33,7 @@ def domain():
     if request.body.len > 0:
         incoming = TRX.MaltegoMsg(request.body.getvalue())
         if (incoming.Type == "Domain" or incoming.Type == "DNSName") and re.match(ValidHostnameRegex, incoming.Value):
-            s = Spyonweb(incoming.TransformSettings['api'])
+            s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
             data = s.domain(incoming.Value)
             return process_domain(data)
         else:
@@ -48,7 +48,7 @@ def adsense():
         incoming = TRX.MaltegoMsg(request.body.getvalue())
         xform = TRX.MaltegoTransform()
         if incoming.Type == "Phrase" and re.match(ValidAdsenseRegex, incoming.Value):
-            s = Spyonweb(incoming.TransformSettings['api'])
+            s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
             data = s.adsense(incoming.Value, limit=incoming.Slider)
             for name in data:
                 ent = xform.addEntity("maltego.Domain", name)
@@ -64,7 +64,7 @@ def analytics():
         incoming = TRX.MaltegoMsg(request.body.getvalue())
         xform = TRX.MaltegoTransform()
         if incoming.Type == "Phrase" and re.match(ValidAnalyticsRegex, incoming.Value):
-            s = Spyonweb(incoming.TransformSettings['api'])
+            s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
             data = s.analytics(incoming.Value, limit=incoming.Slider)
             for name in data:
                 ent = xform.addEntity("maltego.Domain", name)
@@ -80,7 +80,7 @@ def ip():
         incoming = TRX.MaltegoMsg(request.body.getvalue())
         xform = TRX.MaltegoTransform()
         if incoming.Type == "IPv4Address" and re.match(ValidIpAddressRegex, incoming.Value):
-            s = Spyonweb(incoming.TransformSettings['api'])
+            s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
             data = s.ipaddress(incoming.Value, limit=incoming.Slider)
             for name in data:
                 ent = xform.addEntity("maltego.Domain", name)
@@ -96,7 +96,7 @@ def dns_domain():
         incoming = TRX.MaltegoMsg(request.body.getvalue())
         xform = TRX.MaltegoTransform()
         if (incoming.Type == "Domain" or incoming.Type == "DNSName" or incoming.Type == "NSRecord") and re.match(ValidHostnameRegex, incoming.Value):
-            s = Spyonweb(incoming.TransformSettings['api'])
+            s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
             data = s.dns_domain(incoming.Value, limit=incoming.Slider)
             for name in data:
                 ent = xform.addEntity("maltego.Domain", name)
@@ -112,7 +112,7 @@ def ip_dns():
         incoming = TRX.MaltegoMsg(request.body.getvalue())
         xform = TRX.MaltegoTransform()
         if incoming.Type == "IPv4Address" and re.match(ValidIpAddressRegex, incoming.Value):
-            s = Spyonweb(incoming.TransformSettings['api'])
+            s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
             data = s.ip_dns(incoming.Value, limit=incoming.Slider)
             for name in data:
                 ent = xform.addEntity("maltego.NSRecord", name)
