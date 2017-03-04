@@ -170,4 +170,4 @@ def process_domain(data):
 # instantiate our class
 # Start server
 logging.basicConfig(filename='spyonweb-maltego.log', level=logging.DEBUG)
-run(host='0.0.0.0', port=8192, debug=True, reloader=True)
+run(host='0.0.0.0', debug=True, reloader=True)
