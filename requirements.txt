@@ -1,0 +1,2 @@
+bottle==0.12.13
+git+git://github.com/krmaxwell/TRX.git
