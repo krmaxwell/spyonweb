@@ -1,3 +1,2 @@
 bottle==0.12.13
-spyonweb==0.1
 git+git://github.com/krmaxwell/TRX.git
