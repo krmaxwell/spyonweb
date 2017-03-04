@@ -1,8 +1,3 @@
-appdirs==1.4.2
 bottle==0.12.13
-packaging==16.8
-pkg-resources==0.0.0
-pyparsing==2.1.10
-six==1.10.0
 spyonweb==0.1
 git+git://github.com/krmaxwell/TRX.git
