@@ -1,4 +1,5 @@
 import logging
+import os
 import re
 
 from bottle import request
@@ -170,4 +171,4 @@ def process_domain(data):
 # instantiate our class
 # Start server
 logging.basicConfig(filename='spyonweb-maltego.log', level=logging.DEBUG)
-run(host='0.0.0.0', debug=True, reloader=True)
+run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)), debug=True)
