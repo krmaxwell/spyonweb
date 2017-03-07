@@ -21,9 +21,14 @@ def summary():
     if request.body.len > 0:
         incoming = TRX.MaltegoMsg(request.body.getvalue())
         if (incoming.Type == "Domain" or incoming.Type == "DNSName") and re.match(ValidHostnameRegex, incoming.Value):
-            s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
-            data = s.summary(incoming.Value)
-            return process_summary(data)
+            if 'api' in incoming.TransformSettings:
+                s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
+                data = s.summary(incoming.Value)
+                return process_summary(data)
+            else:
+                xform = TRX.MaltegoTransform()
+                xform.addException("Must submit an API key")
+                return xform.throwExceptions()
         else:
             xform = TRX.MaltegoTransform()
             xform.addException("Must submit a valid host name or domain name")
@@ -35,9 +40,14 @@ def domain():
     if request.body.len > 0:
         incoming = TRX.MaltegoMsg(request.body.getvalue())
         if (incoming.Type == "Domain" or incoming.Type == "DNSName") and re.match(ValidHostnameRegex, incoming.Value):
-            s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
-            data = s.domain(incoming.Value)
-            return process_domain(data)
+            if 'api' in incoming.TransformSettings:
+                s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
+                data = s.domain(incoming.Value)
+                return process_domain(data)
+            else:
+                xform = TRX.MaltegoTransform()
+                xform.addException("Must submit an API key")
+                return xform.throwExceptions()
         else:
             xform = TRX.MaltegoTransform()
             xform.addException("Must submit a valid host name or domain name")
@@ -50,11 +60,16 @@ def adsense():
         incoming = TRX.MaltegoMsg(request.body.getvalue())
         xform = TRX.MaltegoTransform()
         if incoming.Type == "Phrase" and re.match(ValidAdsenseRegex, incoming.Value):
-            s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
-            data = s.adsense(incoming.Value, limit=incoming.Slider)
-            for name in data:
-                ent = xform.addEntity("maltego.Domain", name)
-                ent.setLinkLabel(data[name])  # date ID was associated with domain
+            if 'api' in incoming.TransformSettings:
+                s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
+                data = s.adsense(incoming.Value, limit=incoming.Slider)
+                for name in data:
+                    ent = xform.addEntity("maltego.Domain", name)
+                    ent.setLinkLabel(data[name])  # date ID was associated with domain
+            else:
+                xform = TRX.MaltegoTransform()
+                xform.addException("Must submit an API key")
+                return xform.throwExceptions()
         else:
             xform.addException("Must submit a valid Adsense publisher ID")
             return xform.throwExceptions()
@@ -66,11 +81,16 @@ def analytics():
         incoming = TRX.MaltegoMsg(request.body.getvalue())
         xform = TRX.MaltegoTransform()
         if incoming.Type == "Phrase" and re.match(ValidAnalyticsRegex, incoming.Value):
-            s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
-            data = s.analytics(incoming.Value, limit=incoming.Slider)
-            for name in data:
-                ent = xform.addEntity("maltego.Domain", name)
-                ent.setLinkLabel(data[name])  # date ID was associated with domain
+            if 'api' in incoming.TransformSettings:
+                s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
+                data = s.analytics(incoming.Value, limit=incoming.Slider)
+                for name in data:
+                    ent = xform.addEntity("maltego.Domain", name)
+                    ent.setLinkLabel(data[name])  # date ID was associated with domain
+            else:
+                xform = TRX.MaltegoTransform()
+                xform.addException("Must submit an API key")
+                return xform.throwExceptions()
         else:
             xform.addException("Must submit a valid Analytics tracking ID")
             return xform.throwExceptions()
@@ -82,11 +102,16 @@ def ip():
         incoming = TRX.MaltegoMsg(request.body.getvalue())
         xform = TRX.MaltegoTransform()
         if incoming.Type == "IPv4Address" and re.match(ValidIpAddressRegex, incoming.Value):
-            s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
-            data = s.ipaddress(incoming.Value, limit=incoming.Slider)
-            for name in data:
-                ent = xform.addEntity("maltego.Domain", name)
-                ent.setLinkLabel(data[name])  # date IP address was associated with domain
+            if 'api' in incoming.TransformSettings:
+                s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
+                data = s.ipaddress(incoming.Value, limit=incoming.Slider)
+                for name in data:
+                    ent = xform.addEntity("maltego.Domain", name)
+                    ent.setLinkLabel(data[name])  # date IP address was associated with domain
+            else:
+                xform = TRX.MaltegoTransform()
+                xform.addException("Must submit an API key")
+                return xform.throwExceptions()
         else:
             xform.addException("Must submit a valid IPv4 address")
             return xform.throwExceptions()
@@ -98,11 +123,16 @@ def dns_domain():
         incoming = TRX.MaltegoMsg(request.body.getvalue())
         xform = TRX.MaltegoTransform()
         if (incoming.Type == "Domain" or incoming.Type == "DNSName" or incoming.Type == "NSRecord") and re.match(ValidHostnameRegex, incoming.Value):
-            s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
-            data = s.dns_domain(incoming.Value, limit=incoming.Slider)
-            for name in data:
-                ent = xform.addEntity("maltego.Domain", name)
-                ent.setLinkLabel(data[name])  # date domain name was associated with server
+            if 'api' in incoming.TransformSettings:
+                s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
+                data = s.dns_domain(incoming.Value, limit=incoming.Slider)
+                for name in data:
+                    ent = xform.addEntity("maltego.Domain", name)
+                    ent.setLinkLabel(data[name])  # date domain name was associated with server
+            else:
+                xform = TRX.MaltegoTransform()
+                xform.addException("Must submit an API key")
+                return xform.throwExceptions()
         else:
             xform.addException("Must submit a valid host name")
             return xform.throwExceptions()
@@ -114,11 +144,16 @@ def ip_dns():
         incoming = TRX.MaltegoMsg(request.body.getvalue())
         xform = TRX.MaltegoTransform()
         if incoming.Type == "IPv4Address" and re.match(ValidIpAddressRegex, incoming.Value):
-            s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
-            data = s.ip_dns(incoming.Value, limit=incoming.Slider)
-            for name in data:
-                ent = xform.addEntity("maltego.NSRecord", name)
-                ent.setLinkLabel(data[name])  # date domain name was associated with server
+            if 'api' in incoming.TransformSettings:
+                s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
+                data = s.ip_dns(incoming.Value, limit=incoming.Slider)
+                for name in data:
+                    ent = xform.addEntity("maltego.NSRecord", name)
+                    ent.setLinkLabel(data[name])  # date domain name was associated with server
+            else:
+                xform = TRX.MaltegoTransform()
+                xform.addException("Must submit an API key")
+                return xform.throwExceptions()
         else:
             xform.addException("Must submit a valid host name")
             return xform.throwExceptions()
