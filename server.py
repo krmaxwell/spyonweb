@@ -113,7 +113,7 @@ def ip():
             if 'api' in incoming.TransformSettings:
                 s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
                 data = s.ipaddress(incoming.Value, limit=incoming.Slider)
-                if data['status'] != 'found':
+                if data is None:
                     xform.addUIMessage("No results found", TRX.UIM_FATAL)
                     return xform.returnOutput()
                 for name in data:
