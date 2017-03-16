@@ -66,6 +66,7 @@ def adsense():
                 for name in data:
                     ent = xform.addEntity("maltego.Domain", name)
                     ent.setLinkLabel(data[name])  # date ID was associated with domain
+                return xform.returnOutput()
             else:
                 xform = TRX.MaltegoTransform()
                 xform.addException("Must submit an API key")
@@ -87,6 +88,7 @@ def analytics():
                 for name in data:
                     ent = xform.addEntity("maltego.Domain", name)
                     ent.setLinkLabel(data[name])  # date ID was associated with domain
+                return xform.returnOutput()
             else:
                 xform = TRX.MaltegoTransform()
                 xform.addException("Must submit an API key")
@@ -108,6 +110,7 @@ def ip():
                 for name in data:
                     ent = xform.addEntity("maltego.Domain", name)
                     ent.setLinkLabel(data[name])  # date IP address was associated with domain
+                return xform.returnOutput()
             else:
                 xform = TRX.MaltegoTransform()
                 xform.addException("Must submit an API key")
@@ -129,6 +132,7 @@ def dns_domain():
                 for name in data:
                     ent = xform.addEntity("maltego.Domain", name)
                     ent.setLinkLabel(data[name])  # date domain name was associated with server
+                return xform.returnOutput()
             else:
                 xform = TRX.MaltegoTransform()
                 xform.addException("Must submit an API key")
@@ -150,6 +154,7 @@ def ip_dns():
                 for name in data:
                     ent = xform.addEntity("maltego.NSRecord", name)
                     ent.setLinkLabel(data[name])  # date domain name was associated with server
+                return xform.returnOutput()
             else:
                 xform = TRX.MaltegoTransform()
                 xform.addException("Must submit an API key")
