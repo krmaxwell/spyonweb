@@ -63,7 +63,7 @@ def adsense():
             if 'api' in incoming.TransformSettings:
                 s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
                 data = s.adsense(incoming.Value, limit=incoming.Slider)
-                if data['status'] != 'found':
+                if data is None:
                     xform.addUIMessage("No results found", TRX.UIM_FATAL)
                     return xform.returnOutput()
                 for name in data:
@@ -88,7 +88,7 @@ def analytics():
             if 'api' in incoming.TransformSettings:
                 s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
                 data = s.analytics(incoming.Value, limit=incoming.Slider)
-                if data['status'] != 'found':
+                if data is None:
                     xform.addUIMessage("No results found", TRX.UIM_FATAL)
                     return xform.returnOutput()
                 for name in data:
@@ -138,7 +138,7 @@ def dns_domain():
             if 'api' in incoming.TransformSettings:
                 s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
                 data = s.dns_domain(incoming.Value, limit=incoming.Slider)
-                if data['status'] != 'found':
+                if data is None:
                     xform.addUIMessage("No results found", TRX.UIM_FATAL)
                     return xform.returnOutput()
                 for name in data:
@@ -163,7 +163,7 @@ def ip_dns():
             if 'api' in incoming.TransformSettings:
                 s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
                 data = s.ip_dns(incoming.Value, limit=incoming.Slider)
-                if data['status'] != 'found':
+                if data is None:
                     xform.addUIMessage("No results found", TRX.UIM_FATAL)
                     return xform.returnOutput()
                 for name in data:
