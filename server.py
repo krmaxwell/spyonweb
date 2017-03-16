@@ -63,6 +63,9 @@ def adsense():
             if 'api' in incoming.TransformSettings:
                 s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
                 data = s.adsense(incoming.Value, limit=incoming.Slider)
+                if data['status'] != 'found':
+                    xform.addUIMessage("No results found", TRX.UIM_FATAL)
+                    return xform.returnOutput()
                 for name in data:
                     ent = xform.addEntity("maltego.Domain", name)
                     ent.setLinkLabel(data[name])  # date ID was associated with domain
@@ -85,6 +88,9 @@ def analytics():
             if 'api' in incoming.TransformSettings:
                 s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
                 data = s.analytics(incoming.Value, limit=incoming.Slider)
+                if data['status'] != 'found':
+                    xform.addUIMessage("No results found", TRX.UIM_FATAL)
+                    return xform.returnOutput()
                 for name in data:
                     ent = xform.addEntity("maltego.Domain", name)
                     ent.setLinkLabel(data[name])  # date ID was associated with domain
@@ -107,6 +113,9 @@ def ip():
             if 'api' in incoming.TransformSettings:
                 s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
                 data = s.ipaddress(incoming.Value, limit=incoming.Slider)
+                if data['status'] != 'found':
+                    xform.addUIMessage("No results found", TRX.UIM_FATAL)
+                    return xform.returnOutput()
                 for name in data:
                     ent = xform.addEntity("maltego.Domain", name)
                     ent.setLinkLabel(data[name])  # date IP address was associated with domain
@@ -129,6 +138,9 @@ def dns_domain():
             if 'api' in incoming.TransformSettings:
                 s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
                 data = s.dns_domain(incoming.Value, limit=incoming.Slider)
+                if data['status'] != 'found':
+                    xform.addUIMessage("No results found", TRX.UIM_FATAL)
+                    return xform.returnOutput()
                 for name in data:
                     ent = xform.addEntity("maltego.Domain", name)
                     ent.setLinkLabel(data[name])  # date domain name was associated with server
@@ -151,6 +163,9 @@ def ip_dns():
             if 'api' in incoming.TransformSettings:
                 s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
                 data = s.ip_dns(incoming.Value, limit=incoming.Slider)
+                if data['status'] != 'found':
+                    xform.addUIMessage("No results found", TRX.UIM_FATAL)
+                    return xform.returnOutput()
                 for name in data:
                     ent = xform.addEntity("maltego.NSRecord", name)
                     ent.setLinkLabel(data[name])  # date domain name was associated with server
