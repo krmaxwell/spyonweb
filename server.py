@@ -103,7 +103,7 @@ def ip():
     if request.body.len > 0:
         incoming = TRX.MaltegoMsg(request.body.getvalue())
         xform = TRX.MaltegoTransform()
-        if incoming.Type == "IPv4Address" and re.match(ValidIpAddressRegex, incoming.Value):
+        if incoming.Type == "IPv4Address":
             if 'api' in incoming.TransformSettings:
                 s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
                 data = s.ipaddress(incoming.Value, limit=incoming.Slider)
@@ -147,7 +147,7 @@ def ip_dns():
     if request.body.len > 0:
         incoming = TRX.MaltegoMsg(request.body.getvalue())
         xform = TRX.MaltegoTransform()
-        if incoming.Type == "IPv4Address" and re.match(ValidIpAddressRegex, incoming.Value):
+        if incoming.Type == "IPv4Address":
             if 'api' in incoming.TransformSettings:
                 s = spyonweb.Spyonweb(incoming.TransformSettings['api'])
                 data = s.ip_dns(incoming.Value, limit=incoming.Slider)
@@ -160,7 +160,7 @@ def ip_dns():
                 xform.addException("Must submit an API key")
                 return xform.throwExceptions()
         else:
-            xform.addException("Must submit a valid host name")
+            xform.addException("Must submit a valid IP address")
             return xform.throwExceptions()
 
 
