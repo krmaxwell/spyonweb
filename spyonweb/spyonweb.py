@@ -8,7 +8,7 @@ from collections import OrderedDict
 import requests
 
 
-class spyonweb(object):
+class Spyonweb(object):
 
     def __init__(self, token, url=None):
         self.token = token
@@ -82,7 +82,7 @@ def main():
         sys.stderr.write("Need API token in environment variable SPYONWEB_API\n")
         sys.exit()
 
-    s = spyonweb(token=token)
+    s = Spyonweb(token=token)
 
     if args.summary:
         pp.pprint(s.summary(args.summary))
